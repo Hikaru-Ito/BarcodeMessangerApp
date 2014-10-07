@@ -1,0 +1,194 @@
+//
+// 関数定義
+//
+@mixin transition($property, $duration, $timing) {
+	-webkit-transition-property : $property;
+    -webkit-transition-duration : $duration;
+    -webkit-transition-timing-function: $timing;
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility:hidden;
+    transition-property : $property;
+    transition-duration : $duration;
+    transition-timing-function : $timing;
+    transform : translate3d(0, 0, 0);
+    backface-visibility:hidden;
+    //overflow:hidden;
+    -webkit-perspective: 1000;
+}
+@mixin scrollable {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+//
+// メインコード
+//
+body {
+    background:url(../img/info_bg.png);
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 320px auto;
+}
+
+// 全体の基盤
+#wrapper {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    right:0;
+}
+
+// ヘッダー部分の基盤
+#header {
+    position:absolute;
+    background: #34495e;
+    height:46px;
+    line-height: 46px;
+    width: 100%;
+    text-align: center;
+    z-index:10;
+    color:#fff;
+    //box-shadow: 0 1px 2px #aaa;
+    z-index: 3000;
+    top:0;
+    right:0;
+    .header-content {
+        position:absolute;
+        width:100%;
+        height:46px;
+        content:'';
+        top:0;
+        right:0;
+        line-height: 46px;
+        text-align: center;
+        h1 {
+            font-weight: bold;
+            font-size: 16px;
+            color:#fff;
+        }
+        .leftButton {
+            position: absolute;
+            width:46px;
+            line-height: 46px;
+            height:46px;
+            top:0;
+            left:0;
+            text-align: center;
+            font-size: 20px;
+        }
+    }
+}
+
+// コンテンツ部分の基盤
+#main {
+    position:absolute;
+    width:100%;
+    height: 100%;
+    top:0;
+    right:0;
+    @include transition(all, 0.5s, liner);
+    padding-top: 46px;
+}
+#main > * {
+    -webkit-transform: translate3d(0, 0, 0);
+}
+#main.close {
+    -webkit-transform: translate3d(-50%, 0, 0);
+    pointer-events: none;
+}
+
+// メインコンテンツ
+#contents {
+    position: relative;
+    width: 100%;
+    height:100%;
+    @include scrollable;
+}
+
+// サブページの基盤
+.page {
+    position:absolute;
+    top:46px;
+    bottom:0;
+    right:-100%;
+    background-color:#fff;
+    width:100%;
+    z-index: 2000;
+    @include transition(transform, 0.5s, liner);
+    overflow : hidden;
+}
+.page > * {
+    -webkit-transform: translate3d(0, 0, 0);
+}
+.page.open {
+    -webkit-transform: translate3d(-320px, 0, 0);
+}
+.page.close {
+    -webkit-transform: translate3d(-480px, 0, 0);
+    pointer-events: none;
+}
+
+//
+// メインコンテンツ部分
+//
+#scanButton,
+#writeButton {
+    position: absolute;
+    left:2%;
+    width:96%;
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+    font-weight: bold;
+    border:1px solid #fff;
+    margin:30px auto;
+    text-align: center;
+    background:rgba(255, 255, 255, 0.6);
+    &.tapStyle {
+        background:rgba(255, 255, 255, 1.0);
+    }
+}
+#scanButton {
+    bottom:100px;
+}
+#writeButton {
+    bottom:20px;
+}
+.inputMessagePage {
+    textarea {
+        -webkit-appearance:none;
+        width:94%;
+        margin:30px auto;
+        border:1px solid #a0a0a0;
+        border-radius: 2px;
+        box-shadow: none;
+        display: block;
+        height: 150px;
+        font-size: 16px;
+    }
+    .sendButton {
+        width:94%;
+        margin:10px auto;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 12px;
+        background:#e74c3c;
+        color:#fff;
+        &.tapStyle {
+            background:red;
+        }
+    }
+}
+.textShowPage {
+    .text_area {
+        width:94%;
+        margin:30px auto;
+        font-size: 22px;
+        font-weight: bold;
+    }
+}
+
